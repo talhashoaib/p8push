@@ -5,7 +5,7 @@ require 'net-http2'
 module P8push
 
   APPLE_PRODUCTION_JWT_URI = 'https://api.push.apple.com'
-  APPLE_DEVELOPMENT_JWT_URI = 'https://api.development.push.apple.com'
+  APPLE_DEVELOPMENT_JWT_URI = 'https://api.sandbox.push.apple.com'
 
   class Client
     attr_accessor :jwt_uri
@@ -33,14 +33,13 @@ module P8push
     def jwt_http2_post(topic, payload, token)
       ec_key = OpenSSL::PKey::EC.new(@private_key)
       jwt_token = JWT.encode({iss: @team_id, iat: Time.now.to_i}, ec_key, 'ES256', {kid: @key_id})
-
       client = NetHttp2::Client.new(@jwt_uri)
       h = {}
-      h['content-type'] = 'application/json'
       h['apns-expiration'] = '0'
       h['apns-priority'] = '10'
       h['apns-topic'] = topic
       h['authorization'] = "bearer #{jwt_token}"
+      h['content-type'] = 'application/json'
       res = client.call(:post, '/3/device/'+token, body: payload.to_json, timeout: @timeout,
                         headers: h)
       client.close
