@@ -1,0 +1,31 @@
+PATH
+  remote: .
+  specs:
+    klap_p8push (1.0.5)
+      commander (= 4.4)
+      json (= 2.1.0)
+      jwt (= 1.5.6)
+      net-http2 (= 0.18.2)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    commander (4.4.0)
+      highline (~> 1.7.2)
+    highline (1.7.10)
+    http-2 (0.10.2)
+    json (2.1.0)
+    jwt (1.5.6)
+    net-http2 (0.18.2)
+      http-2 (~> 0.10.1)
+    rake (13.0.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  klap_p8push!
+  rake (~> 13.0)
+
+BUNDLED WITH
+   2.1.4
