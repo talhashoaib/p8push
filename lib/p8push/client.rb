@@ -10,24 +10,24 @@ module P8push
   class Client
     attr_accessor :jwt_uri
     class << self
-      def development
-        client = self.new
+      def development(private_key: nil, team_id: nil, key_id: nil, timeout: nil)
+        client = self.new(private_key: private_key, team_id: team_id, key_id: key_id, timeout: timeout)
         client.jwt_uri = APPLE_DEVELOPMENT_JWT_URI
         client
       end
 
-      def production
-        client = self.new
+      def production(private_key: nil, team_id: nil, key_id: nil, timeout: nil)
+        client = self.new(private_key: private_key, team_id: team_id, key_id: key_id, timeout: timeout)
         client.jwt_uri = APPLE_PRODUCTION_JWT_URI
         client
       end
     end
 
-    def initialize
-      @private_key = File.read(ENV['APN_PRIVATE_KEY'])
-      @team_id = ENV['APN_TEAM_ID']
-      @key_id = ENV['APN_KEY_ID']
-      @timeout = Float(ENV['APN_TIMEOUT'] || 2.0)
+    def initialize(private_key: nil, team_id: nil, key_id: nil, timeout: nil)
+      @private_key = private_key || File.read(ENV['APN_PRIVATE_KEY'])
+      @team_id = team_id || ENV['APN_TEAM_ID']
+      @key_id = key_id || ENV['APN_KEY_ID']
+      @timeout = timeout || Float(ENV['APN_TIMEOUT'] || 2.0)
     end
 
     def jwt_http2_post(topic, payload, token)

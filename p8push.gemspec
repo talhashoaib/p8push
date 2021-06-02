@@ -3,15 +3,15 @@ $:.push File.expand_path('../lib', __FILE__)
 require 'p8push/version'
 
 Gem::Specification.new do |s|
-  s.name        = 'klap_p8push'
-  s.authors     = ['Andrew Arrow','Mattt Thompson', 'Kim Laplume']
-  s.email       = 'kl@heartforge.eu'
+  s.name        = 'ts_p8push'
+  s.authors     = ['Andrew Arrow','Mattt Thompson', 'Kim Laplume', 'Talha Shoaib']
+  s.email       = 'talhashoaib27@gmail.com'
   s.license     = 'MIT'
-  s.homepage    = 'https://heartforge.eu'
+  s.homepage    = 'https://talhashoaib.me'
   s.version     = P8push::VERSION
   s.platform    = Gem::Platform::RUBY
   s.summary     = 'Send Apple Push Notifications'
-  s.description = 'apple push notifications using only the new p8 format not the older pem format. fork from p8push'
+  s.description = 'apple push notifications using only the new p8 format not the older pem format. fork from 1klap/p8push'
 
   s.add_dependency 'jwt', '1.5.6'
   s.add_dependency 'commander', '4.4'
