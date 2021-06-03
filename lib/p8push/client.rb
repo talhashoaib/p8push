@@ -27,7 +27,7 @@ module P8push
       @private_key = private_key || File.read(ENV['APN_PRIVATE_KEY'])
       @team_id = team_id || ENV['APN_TEAM_ID']
       @key_id = key_id || ENV['APN_KEY_ID']
-      @timeout = timeout || Float(ENV['APN_TIMEOUT'] || 2.0)
+      @timeout = Float(timeout || ENV['APN_TIMEOUT'] || 2.0) rescue 2.0
     end
 
     def jwt_http2_post(topic, payload, token)
@@ -38,6 +38,7 @@ module P8push
       h['apns-expiration'] = '0'
       h['apns-priority'] = '10'
       h['apns-topic'] = topic
+      h['scheme'] = 'https'
       h['authorization'] = "bearer #{jwt_token}"
       h['content-type'] = 'application/json'
       res = client.call(:post, '/3/device/'+token, body: payload.to_json, timeout: @timeout,
