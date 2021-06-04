@@ -56,7 +56,7 @@ module P8push
       json = {}.merge(@custom_data || {}).inject({}) { |h, (k, v)| h[k.to_s] = v; h }
 
       json['aps'] ||= {}
-      json['aps']['alert'] = @alert.to_json if @alert
+      json['aps']['alert'] = @alert.as_json if @alert
       json['aps']['badge'] = @badge.to_i rescue 0 if @badge
       json['aps']['sound'] = @sound if @sound
       json['aps']['category'] = @category if @category
