@@ -41,6 +41,10 @@ module P8push
       h['scheme'] = 'https'
       h['authorization'] = "bearer #{jwt_token}"
       h['content-type'] = 'application/json'
+
+
+      puts payload.inspect
+      
       res = client.call(:post, '/3/device/'+token, body: payload.to_json, timeout: @timeout,
                         headers: h)
       client.close
