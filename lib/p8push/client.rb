@@ -44,7 +44,7 @@ module P8push
 
 
       puts payload.inspect
-      
+
       res = client.call(:post, '/3/device/'+token, body: payload.to_json, timeout: @timeout,
                         headers: h)
       client.close
