@@ -46,7 +46,7 @@ module P8push
                         headers: h)
       client.close
       return nil if res.status.to_i == 200
-      res.body
+      [res.body, res.status.to_i]
     end
 
     def push(*notifications)
@@ -61,12 +61,12 @@ module P8push
 
         notification.id = index
 
-        err = jwt_http2_post(notification.topic, notification.payload, notification.token)
+        err, status = jwt_http2_post(notification.topic, notification.payload, notification.token)
         if err == nil
           notification.mark_as_sent!
         else
           puts err
-          notification.apns_error_code = err
+          notification.apns_error_code = status
           notification.mark_as_unsent!
         end
       end
